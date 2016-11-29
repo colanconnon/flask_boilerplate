@@ -6,7 +6,7 @@ from app import app, db
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
-app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object(os.environ.get('APP_SETTINGS'))
 
 migrate = Migrate(app, db)
 manager = Manager(app)
