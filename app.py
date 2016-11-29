@@ -21,10 +21,5 @@ def hello():
     return render_template('index.html')
 
 
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
-
-
 if __name__ == '__main__':
     app.run()
