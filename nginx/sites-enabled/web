@@ -3,6 +3,7 @@ server {
     charset utf-8;
 
     location /static/ {
+        gzip_static on;
         alias /src/static/;
     }
 
