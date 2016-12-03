@@ -1,0 +1,16 @@
+ {% from "helpers/_formhelpers.html" import render_field %} {% extends "layout.html" %} {% block body %}
+<div class="container">
+    {% if message and message.error %}
+    <div class="alert alert-danger" role="alert">{{ message.error }}</div>
+    {% endif %}
+    <form action="{{ url_for('routes.register') }}" method=post>
+        {{ render_field(form.email, class="form-control") }} 
+        {{ render_field(form.password, class="form-control") }} 
+        {{ render_field(form.confirm, class="form-control") }}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<!-- /container -->
+
+{% endblock %}

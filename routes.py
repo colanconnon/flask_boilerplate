@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from app import db
 from models import User
-
+from forms import RegistrationForm, LoginForm
 
 routes = Blueprint('routes', __name__,
                    template_folder='templates')
@@ -14,35 +14,32 @@ def index():
 
 @routes.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
+    form = RegistrationForm(request.form)
+    if request.method == 'POST' and form.validate():
         user = User(request.form['username'], request.form['password'])
         if user.is_valid():
             db.session.add(user)
             db.session.commit()
             flash('you are now registered', 'success')
             return redirect(url_for('login'))
-        else:
-            return render_template('register.html')
-    else:
-        return render_template('register.html')
+    return render_template('register.html', form=form)
 
 
 @routes.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        try:
-            if 'username' not in request.form or 'password' not in request.form:
-                return render_template('login.html', message={'error': "Username and password are required"})
-            user = User.query.filter_by(username=request.form['username']).first()
-            if user is None:
-                return render_template('login.html', message={'error' : "Error"})
-            if user.check_password(request.form['password']):
-                flash('you are now signed in', 'success')
-                return redirect(url_for('index'))
-            else:
-                return render_template('login.html', message={'error' : "Error"})
-        except Exception as e:
-            print(e)
-            return render_template('login.html', message={'error' : "Error"})
+    form = LoginForm(request.form)
+    if request.method == 'POST' and form.validate():
+        print(request.form['email'])
+        user = User.query.filter_by(
+            username=request.form['email']).first()
+        if user is None:
+            return render_template('login.html', form=form,
+                                   message={'error': "Username and password are incorrect"})
+        if user.check_password(request.form['password']):
+            flash('you are now signed in', 'success')
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', form=form,
+                                   message={'error': "Username and password are incorrect"})
     else:
-        return render_template('login.html')
+        return render_template('login.html', form=form)

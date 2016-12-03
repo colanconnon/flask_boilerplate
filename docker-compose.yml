@@ -14,7 +14,7 @@ services:
   web:
     build: .
     restart: always
-    command: /usr/local/bin/gunicorn wsgi -w 2 -b :8000 --reload
+    command: sh ./deploy/start.sh
     volumes:
       - .:/src
     ports:

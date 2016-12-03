@@ -19,5 +19,5 @@ python3 manage.py db migrate
 
 To run apply the migrations to your database
 ```
-python3 manage.py upgrade
+python3 manage.py db upgrade
 ```
