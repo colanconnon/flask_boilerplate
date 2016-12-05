@@ -15,7 +15,5 @@ class RegistrationForm(Form):
 class LoginForm(Form):
     email = StringField(
         'Email Address', [validators.DataRequired(message="Email is required")])
-    password = PasswordField('New Password', [
-        validators.Length(
-            min=6, message="Password must be atleast 6 characters long")
-    ])
+    password = PasswordField('New Password',
+                             [validators.DataRequired(message="Password is required")])
