@@ -1,18 +1,18 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from app import db
-from models import User
 from forms import RegistrationForm, LoginForm
 
-routes = Blueprint('routes', __name__,
+app_routes = Blueprint('app_routes', __name__,
                    template_folder='templates')
+from database import db
+from models import User
 
 
-@routes.route('/')
+@app_routes.route('/')
 def index():
     return render_template('index.html')
 
 
-@routes.route('/register', methods=['GET', 'POST'])
+@app_routes.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -25,7 +25,7 @@ def register():
     return render_template('register.html', form=form)
 
 
-@routes.route('/login', methods=['GET', 'POST'])
+@app_routes.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():

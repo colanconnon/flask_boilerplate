@@ -14,7 +14,9 @@ services:
   web:
     build: .
     restart: always
-    command: sh ./deploy/start.sh
+    command: bash ./deploy/start.sh
+    environment: 
+      - FLASK_ENV=development
     volumes:
       - .:/src
     ports:
