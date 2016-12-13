@@ -22,6 +22,7 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
+    FLASK_DEBUG = 1
 
 
 class TestingConfig(Config):
