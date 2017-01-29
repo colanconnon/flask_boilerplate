@@ -1,5 +1,17 @@
 version: '2'
 services:
+  celery:
+    build: .
+    command: celery worker -l info -A celery_setup.celery
+    volumes:
+      - '.:/src'
+  redis:
+    image: 'redis:3.0-alpine'
+    command: redis-server --requirepass devpassword
+    volumes:
+      - 'redis:/var/lib/redis/data'
+    ports:
+      - '6379:6379'
   db:
     restart: always
     image: postgres
@@ -10,7 +22,7 @@ services:
         POSTGRES_USER: flask
         POSTGRES_DB: flask_db
     ports:
-      - "54323:5432"
+      - "54324:5432"
   web:
     build: .
     restart: always
@@ -36,4 +48,6 @@ services:
         - web:web
 volumes:
   postgres-data:
+    driver: local
+  redis:
     driver: local
