@@ -5,6 +5,13 @@ services:
     command: celery worker -l info -A celery_setup.celery
     volumes:
       - '.:/src'
+  flower:
+    build: .
+    command: celery -A celery_setup.celery flower --port=5555
+    volumes:
+      - '.:/src'
+    ports:
+      - "5555:5555"
   redis:
     image: 'redis:3.0-alpine'
     command: redis-server --requirepass devpassword
