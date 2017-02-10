@@ -2,12 +2,12 @@ version: '2'
 services:
   celery:
     build: .
-    command: celery worker -l info -A celery_setup.celery
+    command: celery worker -l info --app=celery_setup
     volumes:
       - '.:/src'
   flower:
     build: .
-    command: celery -A celery_setup.celery flower --port=5555
+    command: celery --app=celery_setup flower --port=5555
     volumes:
       - '.:/src'
     ports:

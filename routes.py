@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from utils import validate_json, validate_json_schema
+from tasks.async.add_numbers import add_together
 
 app_routes = Blueprint('app_routes', __name__,
                    template_folder='templates')
@@ -7,7 +8,10 @@ from database import db
 from models import User
 
 
-
+@app_routes.route('/', methods=['GET'])
+def index():
+    add_together.delay(2, 2)
+    return "hello world"
 
 
 @app_routes.route('/register', methods=['POST'])
