@@ -1,5 +1,7 @@
 # flask_boilerplate
 
+[![Build Status](https://travis-ci.org/colanconnon/flask_boilerplate.svg?branch=api)](https://travis-ci.org/colanconnon/flask_boilerplate)
+
 A basic flask boilerplate using docker-compose postgres, sql alchemy and nginx
 
 To start just type 
