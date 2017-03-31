@@ -29,7 +29,7 @@ services:
         POSTGRES_USER: flask
         POSTGRES_DB: flask_db
     ports:
-      - "54324:5432"
+      - "54325:5432"
   web:
     build: .
     restart: always
@@ -39,7 +39,7 @@ services:
     volumes:
       - .:/src
     ports:
-      - "8000:8000"
+      - "8005:8000"
     depends_on:
       - db
   nginx:

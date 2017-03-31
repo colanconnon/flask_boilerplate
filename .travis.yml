@@ -1,0 +1,32 @@
+language: python
+
+python:
+  - "3.6"
+  - "3.5"
+  - "3.4"
+  - "2.7"
+
+service:
+  - postgresql
+  - redis-server
+
+before_install:
+  - export APP_SETTINGS="project.server.config.TestingConfig"
+  - export SECRET_KEY="justatest"
+  - export DATABASE_URL="postgresql://postgres:@localhost/flask_db"
+  - export CELERY_BROKER_URL="redis://localhost:6379/0"
+  - export CELERY_RESULT_BACKEND="postgresql://postgres:@localhost/flask_db"
+
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+before_script:
+  - psql -c 'create database flask_db;' -U postgres
+  - python manage.py db upgrade
+
+script:
+  - python manage.py cov
+
+after_success:
+  coveralls

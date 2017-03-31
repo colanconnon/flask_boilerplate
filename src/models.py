@@ -1,7 +1,9 @@
 from database import db
-from sqlalchemy.dialects.postgresql import JSON
 from werkzeug.security import generate_password_hash, \
      check_password_hash
+import datetime
+import jwt
+import os
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -20,13 +22,8 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+
     def is_valid(self):
-        print(self.password_hash)
-        if len(self.username) == 0 or self.username is None:
-            return False
-        if len(self.password_hash) == 0 or self.password_hash is None:
+        if self.username is None or len(self.username) == 0:
             return False
         return True
-    
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
