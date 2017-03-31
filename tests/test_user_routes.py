@@ -68,6 +68,15 @@ class UserAuthenticationTests(unittest.TestCase):
             "password": "test"
         }
         response = self.app.post(
+            '/register',
+            data=json.dumps(request_data),
+            content_type='application/json'
+        )
+        request_data = {
+            "username": "test",
+            "password": "test"
+        }
+        response = self.app.post(
             '/login',
             data=json.dumps(request_data),
             content_type='application/json'
