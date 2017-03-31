@@ -21,3 +21,9 @@ To run apply the migrations to your database
 ```
 python3 manage.py db upgrade
 ```
+
+# To run tests
+
+```
+python3 manage.py test
+```
