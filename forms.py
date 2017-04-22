@@ -17,3 +17,10 @@ class LoginForm(Form):
         'Email Address', [validators.DataRequired(message="Email is required")])
     password = PasswordField('New Password',
                              [validators.DataRequired(message="Password is required")])
+
+
+class TodoForm(Form):
+    name = StringField(
+        'Todo',
+        [validators.DataRequired(message='Todo is required')]
+    )

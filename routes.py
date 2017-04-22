@@ -1,16 +1,36 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, TodoForm
 
 app_routes = Blueprint('app_routes', __name__,
                    template_folder='templates')
 from database import db
-from models import User
+from models import User, Todo
 
 
 @app_routes.route('/')
 def index():
     return render_template('index.html')
 
+@app_routes.route('/todo', methods=['GET'])
+def todos():
+    todos = Todo.query.all()
+    return render_template('todos.html', todos=todos)
+
+@app_routes.route('/todo/<id>', methods=['GET'])
+def todo(id):
+    todo = Todo.query.get(id)
+    return render_template('todo.html', todo=todo)
+
+@app_routes.route('/create-todo', methods=['GET', 'POST'])
+def create_todo():
+    form = TodoForm(request.form)
+    if request.method == 'POST' and form.validate():
+        todo = Todo(request.form['name'])
+        db.session.add(todo)
+        db.session.commit()
+        flash(f'Created Todo with id {todo.id}', 'success')
+        return redirect('/todo')
+    return render_template('createtodo.html', form=form)
 
 @app_routes.route('/register', methods=['GET', 'POST'])
 def register():

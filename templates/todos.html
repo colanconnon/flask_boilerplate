@@ -1,0 +1,16 @@
+ {% from "helpers/_formhelpers.html" import render_field %} {% extends "layout.html" %} {% block body %}
+<div class="container">
+    <h1> Todos </h1>
+    <a href="/create-todo" class="btn btn-primary"> Create a new todo </a>
+    <br />
+    <br />
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+    <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %} {% endif %} {% endwith %} 
+    {% for item in todos %}
+    <li><a href="/todo/{{item.id}}"> {{ item.name }} </a></li>
+    {% endfor %}
+</div>
+<!-- /container -->
+
+{% endblock %}

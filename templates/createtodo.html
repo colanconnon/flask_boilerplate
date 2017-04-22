@@ -1,0 +1,13 @@
+ {% from "helpers/_formhelpers.html" import render_field %} {% extends "layout.html" %} {% block body %}
+<div class="container">
+    {% if message and message.error %}
+    <div class="alert alert-danger" role="alert">{{ message.error }}</div>
+    {% endif %}
+    <form action="{{ url_for('app_routes.create_todo') }}" method=post>
+        {{ render_field(form.name, class="form-control") }} 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<!-- /container -->
+
+{% endblock %}

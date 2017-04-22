@@ -29,3 +29,13 @@ class User(db.Model):
     
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+class Todo(db.Model):
+
+    __tablename__ = 'todoes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+
+    def __init__(self, name):
+        self.name = name

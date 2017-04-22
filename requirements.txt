@@ -16,4 +16,4 @@ Werkzeug==0.11.4
 autoenv==1.0.0
 python_dotenv==0.6.1
 wtforms==2.1
-gevent==1.1.2
+meinheld==0.6.1
