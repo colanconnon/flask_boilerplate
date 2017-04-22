@@ -36,12 +36,15 @@ def create_todo():
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
-        user = User(request.form['username'], request.form['password'])
+        user = User(request.form['email'], request.form['password'])
         if user.is_valid():
             db.session.add(user)
             db.session.commit()
             flash('you are now registered', 'success')
-            return redirect(url_for('login'))
+            return redirect('/login')
+        else:
+            return render_template('register.html', form=form,
+                                    message={'error': "Invalid input provided"})
     return render_template('register.html', form=form)
 
 

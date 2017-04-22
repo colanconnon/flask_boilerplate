@@ -12,7 +12,7 @@ class User(db.Model):
 
     def __init__(self, username, password):
         self.username = username
-        self.password_hash = self.set_password(password)
+        self.set_password(password)
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -21,9 +21,9 @@ class User(db.Model):
         return check_password_hash(self.pw_hash, password)
 
     def is_valid(self):
-        if len(self.username) == 0 or self.username is None:
+        if self.username is None or len(self.username) == 0:
             return False
-        if len(self.password_hash) == 0 or self.password_hash is None:
+        if self.password_hash is None or len(self.password_hash) == 0:
             return False
         return True
     
