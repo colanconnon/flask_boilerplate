@@ -60,7 +60,7 @@ def login():
                                    message={'error': "Username and password are incorrect"})
         if user.check_password(request.form['password']):
             flash('you are now signed in', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('app_routes.index'))
         else:
             return render_template('login.html', form=form,
                                    message={'error': "Username and password are incorrect"})

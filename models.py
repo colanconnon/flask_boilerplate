@@ -18,7 +18,7 @@ class User(db.Model):
         self.password_hash = generate_password_hash(password)
     
     def check_password(self, password):
-        return check_password_hash(self.pw_hash, password)
+        return check_password_hash(self.password_hash, password)
 
     def is_valid(self):
         if self.username is None or len(self.username) == 0:
