@@ -9,7 +9,7 @@ service:
   - redis-server
 
 before_install:
-  - export APP_SETTINGS="config.TestingConfig"
+  - export APP_SETTINGS="myapp.config.TestingConfig"
   - export SECRET_KEY="justatest"
   - export DATABASE_URL="postgresql://postgres:@localhost/flask_db"
   - export CELERY_BROKER_URL="redis://localhost:6379/0"
