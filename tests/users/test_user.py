@@ -2,7 +2,7 @@ import unittest
 from myapp.wsgi import app
 from myapp import db
 import json
-from src.models import User
+from myapp.api.models import User
 
 class UserTests(unittest.TestCase):
 
