@@ -24,7 +24,4 @@ before_script:
   - python manage.py db upgrade
 
 script:
-  - python manage.py cov
-
-after_success:
-  coveralls
+  - python manage.py test
