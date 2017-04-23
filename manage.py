@@ -1,9 +1,9 @@
 import os
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from app import app
+from myapp.wsgi import app
 from dotenv import load_dotenv, find_dotenv
-from database import db
+from myapp import db
 
 import os
 import unittest
@@ -11,10 +11,10 @@ import coverage
 
 COV = coverage.coverage(
     branch=True,
-    include='src/*',
+    include='api/*',
     omit=[
         'tests/*',
-        'src/__init__.py'
+        'api/__init__.py'
     ]
 )
 COV.start()

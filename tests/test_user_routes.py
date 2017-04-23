@@ -1,6 +1,6 @@
 import unittest
-from app import app
-from database import db
+from myapp.wsgi import app
+from myapp import db
 import json
 
 class UserAuthenticationTests(unittest.TestCase):

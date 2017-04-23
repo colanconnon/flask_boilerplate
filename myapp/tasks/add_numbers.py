@@ -1,4 +1,4 @@
-from celery_setup import celery
+from .. import celery
 
 @celery.task()
 def add_together(a, b):

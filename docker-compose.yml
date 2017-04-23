@@ -2,12 +2,12 @@ version: '2'
 services:
   celery:
     build: .
-    command: celery worker -l info --app=celery_setup
+    command: bash ./deploy/start-celery.sh
     volumes:
       - '.:/src'
   flower:
     build: .
-    command: celery --app=celery_setup flower --port=5555
+    command: bash ./deploy/start-flower.sh
     volumes:
       - '.:/src'
     ports:
@@ -15,15 +15,11 @@ services:
   redis:
     image: 'redis:3.0-alpine'
     command: redis-server --requirepass devpassword
-    volumes:
-      - 'redis:/var/lib/redis/data'
     ports:
       - '6379:6379'
   db:
     restart: always
     image: postgres
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
     environment:
         POSTGRES_PASSWORD: secret
         POSTGRES_USER: flask
@@ -53,8 +49,3 @@ services:
         - web
     links:
         - web:web
-volumes:
-  postgres-data:
-    driver: local
-  redis:
-    driver: local

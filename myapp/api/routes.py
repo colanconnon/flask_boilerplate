@@ -1,26 +1,23 @@
 from flask import Blueprint, jsonify, request
-from utils import validate_json, validate_json_schema
-from tasks.async.add_numbers import add_together
+from ..tasks.add_numbers import add_together
 from flask_jwt_extended import JWTManager, jwt_required,\
     create_access_token, get_jwt_identity
-
+from ..async_tasks import async
+from .models import User
+from .. import db
 app_routes = Blueprint('app_routes', __name__,
                    template_folder='templates')
-from database import db
-from .models import User
 
 
-@app_routes.route('/', methods=['GET'])
-@jwt_required
+
+@app_routes.route('/', methods=['POST'])
+@async
 def index():
-    add_together.delay(2, 2)
     return "hello world"
 
 
 
 @app_routes.route('/register', methods=['POST'])
-@validate_json
-@validate_json_schema(['username', 'password'])
 def register():
     user = User(username=request.json['username'], password=request.json['password'])
     if user.is_valid():
@@ -31,8 +28,6 @@ def register():
         return jsonify({'error': "user is not valid"}), 400
 
 @app_routes.route('/login', methods=['POST'])
-@validate_json
-@validate_json_schema(['username','password'])
 def login():
     user = User.query.filter_by(
         username=request.json['username']).first()
