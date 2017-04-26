@@ -24,3 +24,5 @@ Celery==4.0.2
 redis==2.10.5
 flower==0.9.1
 flask-jwt-extended==1.3.1
+Flask-SocketIO==2.4
+meinheld==0.6.1
